@@ -4,8 +4,8 @@ import agent from '../agent';
 import { connect } from 'react-redux';
 import {
   EDITOR_PAGE_LOADED,
-  ARTICLE_SUBMITTED,
-  /*SONG_SUBMITTED,*/
+
+  SONG_SUBMITTED,
   EDITOR_PAGE_UNLOADED,
   UPDATE_FIELD_EDITOR
 } from '../constants/actionTypes';
@@ -18,10 +18,9 @@ const mapDispatchToProps = dispatch => ({
   onLoad: payload =>
     dispatch({ type: EDITOR_PAGE_LOADED, payload }),
   onSubmit: payload =>
-    dispatch({ type: ARTICLE_SUBMITTED, payload }),
+
+      dispatch({ type: SONG_SUBMITTED, payload }),
   onUnload: payload =>
-      /*dispatch({ type: SONG_SUBMITTED, payload }),
-  onUnload: payload =>*/
     dispatch({ type: EDITOR_PAGE_UNLOADED }),
   onUpdateField: (key, value) =>
     dispatch({ type: UPDATE_FIELD_EDITOR, key, value })
@@ -40,25 +39,17 @@ class Editor extends React.Component {
 
     this.submitForm = ev => {
       ev.preventDefault();
-      const article = {
+
+      const song = {
         title: this.props.title,
         description: this.props.description,
         body: this.props.body
       };
-      /*const song = {
-        title: this.props.title,
-        description: this.props.description,
-        body: this.props.body
-      };*/
-      /*const slug = { slug: this.props.songSlug };
+      const slug = { slug: this.props.songSlug };
       const promise = this.props.songSlug ?
           agent.Songs.update(Object.assign(song, slug)) :
-          agent.Songs.create(song);*/
+          agent.Songs.create(song);
 
-      const slug = { slug: this.props.articleSlug };
-      const promise = this.props.articleSlug ?
-        agent.Articles.update(Object.assign(article, slug)) :
-        agent.Articles.create(article);
 
       this.props.onSubmit(promise);
     };
@@ -68,8 +59,7 @@ class Editor extends React.Component {
     if (this.props.match.params.slug !== nextProps.match.params.slug) {
       if (nextProps.match.params.slug) {
         this.props.onUnload();
-        return this.props.onLoad(agent.Articles.get(this.props.match.params.slug));
-        /*return this.props.onLoad(agent.Songs.get(this.props.match.params.slug));*/
+        return this.props.onLoad(agent.Songs.get(this.props.match.params.slug));
       }
       this.props.onLoad(null);
     }
@@ -77,8 +67,7 @@ class Editor extends React.Component {
 
   componentWillMount() {
     if (this.props.match.params.slug) {
-      return this.props.onLoad(agent.Articles.get(this.props.match.params.slug));
-      /*return this.props.onLoad(agent.ongs.get(this.props.match.params.slug));*/
+      return this.props.onLoad(agent.ongs.get(this.props.match.params.slug));
     }
     this.props.onLoad(null);
   }
@@ -103,8 +92,8 @@ class Editor extends React.Component {
                     <input
                       className="form-control form-control-lg"
                       type="text"
-                      placeholder="Article Title"
-                      /*placeholder="Song Title"*/
+
+                      placeholder="Song Title"
                       value={this.props.title}
                       onChange={this.changeTitle} />
                   </fieldset>
@@ -113,8 +102,8 @@ class Editor extends React.Component {
                     <input
                       className="form-control"
                       type="text"
-                      placeholder="What's this article about?"
-                      /*placeholder="What's this song about?"*/
+
+                      placeholder="Who sings this song"
                       value={this.props.description}
                       onChange={this.changeDescription} />
                   </fieldset>
@@ -123,8 +112,8 @@ class Editor extends React.Component {
                     <textarea
                       className="form-control"
                       rows="8"
-                      placeholder="Write your article (in markdown)"
-                      /*placeholder="Write your song (in markdown)"*/
+
+                      placeholder="Write song lyrics here.."
                       value={this.props.body}
                       onChange={this.changeBody}>
                     </textarea>
@@ -136,8 +125,8 @@ class Editor extends React.Component {
                     type="button"
                     disabled={this.props.inProgress}
                     onClick={this.submitForm}>
-                    Publish Article
-                    {/*Publish Song*/}
+
+                    Publish Song
                   </button>
 
                 </fieldset>

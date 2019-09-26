@@ -42,33 +42,9 @@ const Tags = {
 };
 
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
-const omitSlug = article => Object.assign({}, article, { slug: undefined })
-const Articles = {
-  all: page =>
-    requests.get(`/articles?${limit(10, page)}`),
-  byAuthor: (author, page) =>
-    requests.get(`/articles?author=${encode(author)}&${limit(5, page)}`),
-  byTag: (tag, page) =>
-    requests.get(`/articles?tag=${encode(tag)}&${limit(10, page)}`),
-  del: slug =>
-    requests.del(`/articles/${slug}`),
-  favorite: slug =>
-    requests.post(`/articles/${slug}/favorite`),
-  favoritedBy: (author, page) =>
-    requests.get(`/articles?favorited=${encode(author)}&${limit(5, page)}`),
-  feed: () =>
-    requests.get('/articles/feed?limit=10&offset=0'),
-  get: slug =>
-    requests.get(`/articles/${slug}`),
-  unfavorite: slug =>
-    requests.del(`/articles/${slug}/favorite`),
-  update: article =>
-    requests.put(`/articles/${article.slug}`, { article: omitSlug(article) }),
-  create: article =>
-    requests.post('/articles', { article })
-};
+const omitSlug = song => Object.assign({}, song, { slug: undefined })
 
-/*const Songs = {
+const Songs = {
   all: page =>
       requests.get(`/songs?${limit(10, page)}`),
   byAuthor: (author, page) =>
@@ -88,10 +64,10 @@ const Articles = {
   unfavorite: slug =>
       requests.del(`/songs/${slug}/favorite`),
   update: song =>
-      requests.put(`/songs/${article.slug}`, { song: omitSlug(song) }),
+      requests.put(`/songs/${song.slug}`, { song: omitSlug(song) }),
   create: song =>
       requests.post('/songs', { song })
-};*/
+};
 
 
 
@@ -106,8 +82,8 @@ const Profile = {
 };
 
 export default {
-  Articles,
-  /*Songs,*/
+
+  Songs,
   Auth,
   Profile,
   Tags,

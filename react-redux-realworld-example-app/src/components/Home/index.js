@@ -27,14 +27,11 @@ const mapDispatchToProps = dispatch => ({
 class Home extends React.Component {
   componentWillMount() {
     const tab = this.props.token ? 'feed' : 'all';
-    const articlesPromise = this.props.token ?
-      agent.Articles.feed :
-      agent.Articles.all;
-    /*const songsPromise = this.props.token ?
+    const songsPromise = this.props.token ?
         agent.Songs.feed :
-        agent.Songs.all;*/
+        agent.Songs.all;
 
-    this.props.onLoad(tab, articlesPromise, /*songsPromise,*/ Promise.all([agent.Tags.getAll(), articlesPromise(), /*songsPromise()*/]));
+    this.props.onLoad(tab, songsPromise, Promise.all([agent.Tags.getAll(), songsPromise()]));
   }
 
   componentWillUnmount() {

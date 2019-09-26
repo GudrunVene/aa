@@ -1,5 +1,5 @@
-import ArticleList from './ArticleList';
-/*import SongList from './SongList';*/
+
+import SongList from './SongList';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import agent from '../agent';
@@ -57,8 +57,7 @@ const FollowUserButton = props => {
 };
 
 const mapStateToProps = state => ({
-  ...state.articleList,
-  /*...state.songList,*/
+  ...state.songList,
   currentUser: state.common.currentUser,
   profile: state.profile
 });
@@ -80,8 +79,7 @@ class Profile extends React.Component {
   componentWillMount() {
     this.props.onLoad(Promise.all([
       agent.Profile.get(this.props.match.params.username),
-      agent.Articles.byAuthor(this.props.match.params.username)
-     /* agent.Songs.byAuthor(this.props.match.params.username)*/
+      agent.Songs.byAuthor(this.props.match.params.username)
     ]));
   }
 
@@ -96,7 +94,7 @@ class Profile extends React.Component {
           <Link
             className="nav-link active"
             to={`/@${this.props.profile.username}`}>
-            My Articles
+            My Songs
           </Link>
         </li>
 
@@ -144,20 +142,16 @@ class Profile extends React.Component {
 
             <div className="col-xs-12 col-md-10 offset-md-1">
 
-              <div className="articles-toggle">
+              <div className="songs-toggle">
                 {this.renderTabs()}
               </div>
 
-              <ArticleList
-                pager={this.props.pager}
-                articles={this.props.articles}
-                articlesCount={this.props.articlesCount}
-                state={this.props.currentPage} />
-             {/* <SongList
+
+              <SongList
                   pager={this.props.pager}
                   songs={this.props.songs}
                   songsCount={this.props.songsCount}
-                  state={this.props.currentPage} />*/}
+                  state={this.props.currentPage} />
             </div>
 
           </div>

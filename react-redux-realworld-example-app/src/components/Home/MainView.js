@@ -1,5 +1,5 @@
-import ArticleList from '../ArticleList';
-/*import SongList from '../SongList';*/
+
+import SongList from '../SongList';
 import React from 'react';
 import agent from '../../agent';
 import { connect } from 'react-redux';
@@ -9,8 +9,7 @@ const YourFeedTab = props => {
   if (props.token) {
     const clickHandler = ev => {
       ev.preventDefault();
-      props.onTabClick('feed', agent.Articles.feed, agent.Articles.feed());
-      /*props.onTabClick('feed', agent.Songs.feed, agent.Songs.feed());*/
+      props.onTabClick('feed', agent.Songs.feed, agent.Songs.feed());
     }
 
     return (
@@ -29,8 +28,7 @@ const YourFeedTab = props => {
 const GlobalFeedTab = props => {
   const clickHandler = ev => {
     ev.preventDefault();
-    props.onTabClick('all', agent.Articles.all, agent.Articles.all());
-   /* props.onTabClick('all', agent.Songs.all, agent.Songs.all());*/
+    props.onTabClick('all', agent.Songs.all, agent.Songs.all());
   };
   return (
     <li className="nav-item">
@@ -46,8 +44,8 @@ const GlobalFeedTab = props => {
 
 
 const mapStateToProps = state => ({
-  ...state.articleList,
-  /*...state.songList,*/
+
+  ...state.songList,
   token: state.common.token
 });
 
@@ -73,20 +71,15 @@ const MainView = props => {
         </ul>
       </div>
 
-      <ArticleList
-        pager={props.pager}
-        articles={props.articles}
-        loading={props.loading}
-        articlesCount={props.articlesCount}
-        currentPage={props.currentPage} />
-    </div>
-     /* <SongList
+
+
+      <SongList
         pager={props.pager}
         songs={props.songs}
         loading={props.loading}
         songsCount={props.songsCount}
         currentPage={props.currentPage} />
-      </div>*/
+      </div>
   );
 };
 
