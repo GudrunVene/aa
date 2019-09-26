@@ -22,7 +22,6 @@ export default (state = {}, action) => {
       return {
         ...state,
         pager: action.pager,
-        tags: action.payload[0].tags,
         articles: action.payload[1].articles,
         articlesCount: action.payload[1].articlesCount,
         currentPage: 0,
@@ -37,8 +36,7 @@ export default (state = {}, action) => {
         articles: action.payload.articles,
         articlesCount: action.payload.articlesCount,
         tab: action.tab,
-        currentPage: 0,
-        tag: null
+        currentPage: 0
       };
     case PROFILE_PAGE_LOADED:
       return {
