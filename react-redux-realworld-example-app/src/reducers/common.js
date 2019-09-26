@@ -3,11 +3,14 @@ import {
   REDIRECT,
   LOGOUT,
   ARTICLE_SUBMITTED,
+/*  SONG_SUBMITTED,*/
   SETTINGS_SAVED,
   LOGIN,
   REGISTER,
   DELETE_ARTICLE,
+/*  DELETE_SONG,*/
   ARTICLE_PAGE_UNLOADED,
+ /* SONG_PAGE_UNLOADED,*/
   EDITOR_PAGE_UNLOADED,
   HOME_PAGE_UNLOADED,
   PROFILE_PAGE_UNLOADED,
@@ -38,6 +41,9 @@ export default (state = defaultState, action) => {
     case ARTICLE_SUBMITTED:
       const redirectUrl = `/article/${action.payload.article.slug}`;
       return { ...state, redirectTo: redirectUrl };
+    /*case SONG_SUBMITTED:
+      const redirectUrl = `/song/${action.payload.song.slug}`;
+      return { ...state, redirectTo: redirectUrl };*/
     case SETTINGS_SAVED:
       return {
         ...state,
@@ -54,7 +60,10 @@ export default (state = defaultState, action) => {
       };
     case DELETE_ARTICLE:
       return { ...state, redirectTo: '/' };
+   /* case DELETE_SONG:
+      return { ...state, redirectTo: '/' };*/
     case ARTICLE_PAGE_UNLOADED:
+  /*  case SONG_PAGE_UNLOADED:*/
     case EDITOR_PAGE_UNLOADED:
     case HOME_PAGE_UNLOADED:
     case PROFILE_PAGE_UNLOADED:

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
 import { Route, Switch } from 'react-router-dom';
 import Article from '../components/Article';
+/*import Song from '../components/Song';*/
 import Editor from '../components/Editor';
 import Home from '../components/Home';
 import Login from '../components/Login';
@@ -61,6 +62,7 @@ class App extends React.Component {
             <Route path="/editor/:slug" component={Editor} />
             <Route path="/editor" component={Editor} />
             <Route path="/article/:id" component={Article} />
+             {/* <Route path="/song/:id" component={Song} />*/}
             <Route path="/settings" component={Settings} />
             <Route path="/@:username" component={Profile} />
             </Switch>

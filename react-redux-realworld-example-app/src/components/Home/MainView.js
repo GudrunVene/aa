@@ -1,4 +1,5 @@
 import ArticleList from '../ArticleList';
+/*import SongList from '../SongList';*/
 import React from 'react';
 import agent from '../../agent';
 import { connect } from 'react-redux';
@@ -9,6 +10,7 @@ const YourFeedTab = props => {
     const clickHandler = ev => {
       ev.preventDefault();
       props.onTabClick('feed', agent.Articles.feed, agent.Articles.feed());
+      /*props.onTabClick('feed', agent.Songs.feed, agent.Songs.feed());*/
     }
 
     return (
@@ -28,6 +30,7 @@ const GlobalFeedTab = props => {
   const clickHandler = ev => {
     ev.preventDefault();
     props.onTabClick('all', agent.Articles.all, agent.Articles.all());
+   /* props.onTabClick('all', agent.Songs.all, agent.Songs.all());*/
   };
   return (
     <li className="nav-item">
@@ -44,6 +47,7 @@ const GlobalFeedTab = props => {
 
 const mapStateToProps = state => ({
   ...state.articleList,
+  /*...state.songList,*/
   token: state.common.token
 });
 
@@ -76,6 +80,13 @@ const MainView = props => {
         articlesCount={props.articlesCount}
         currentPage={props.currentPage} />
     </div>
+     /* <SongList
+        pager={props.pager}
+        songs={props.songs}
+        loading={props.loading}
+        songsCount={props.songsCount}
+        currentPage={props.currentPage} />
+      </div>*/
   );
 };
 

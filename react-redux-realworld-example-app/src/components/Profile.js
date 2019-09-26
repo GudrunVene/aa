@@ -1,4 +1,5 @@
 import ArticleList from './ArticleList';
+/*import SongList from './SongList';*/
 import React from 'react';
 import { Link } from 'react-router-dom';
 import agent from '../agent';
@@ -57,6 +58,7 @@ const FollowUserButton = props => {
 
 const mapStateToProps = state => ({
   ...state.articleList,
+  /*...state.songList,*/
   currentUser: state.common.currentUser,
   profile: state.profile
 });
@@ -79,6 +81,7 @@ class Profile extends React.Component {
     this.props.onLoad(Promise.all([
       agent.Profile.get(this.props.match.params.username),
       agent.Articles.byAuthor(this.props.match.params.username)
+     /* agent.Songs.byAuthor(this.props.match.params.username)*/
     ]));
   }
 
@@ -150,6 +153,11 @@ class Profile extends React.Component {
                 articles={this.props.articles}
                 articlesCount={this.props.articlesCount}
                 state={this.props.currentPage} />
+             {/* <SongList
+                  pager={this.props.pager}
+                  songs={this.props.songs}
+                  songsCount={this.props.songsCount}
+                  state={this.props.currentPage} />*/}
             </div>
 
           </div>

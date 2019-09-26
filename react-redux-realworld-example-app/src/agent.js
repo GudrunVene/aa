@@ -68,6 +68,32 @@ const Articles = {
     requests.post('/articles', { article })
 };
 
+/*const Songs = {
+  all: page =>
+      requests.get(`/songs?${limit(10, page)}`),
+  byAuthor: (author, page) =>
+      requests.get(`/songs?author=${encode(author)}&${limit(5, page)}`),
+  byTag: (tag, page) =>
+      requests.get(`/songs?tag=${encode(tag)}&${limit(10, page)}`),
+  del: slug =>
+      requests.del(`/songs/${slug}`),
+  favorite: slug =>
+      requests.post(`/songs/${slug}/favorite`),
+  favoritedBy: (author, page) =>
+      requests.get(`/songs?favorited=${encode(author)}&${limit(5, page)}`),
+  feed: () =>
+      requests.get('/songs/feed?limit=10&offset=0'),
+  get: slug =>
+      requests.get(`/songs/${slug}`),
+  unfavorite: slug =>
+      requests.del(`/songs/${slug}/favorite`),
+  update: song =>
+      requests.put(`/songs/${article.slug}`, { song: omitSlug(song) }),
+  create: song =>
+      requests.post('/songs', { song })
+};*/
+
+
 
 
 const Profile = {
@@ -81,6 +107,7 @@ const Profile = {
 
 export default {
   Articles,
+  /*Songs,*/
   Auth,
   Profile,
   Tags,

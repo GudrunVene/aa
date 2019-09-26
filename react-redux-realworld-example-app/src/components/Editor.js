@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   EDITOR_PAGE_LOADED,
   ARTICLE_SUBMITTED,
+  /*SONG_SUBMITTED,*/
   EDITOR_PAGE_UNLOADED,
   UPDATE_FIELD_EDITOR
 } from '../constants/actionTypes';
@@ -19,6 +20,8 @@ const mapDispatchToProps = dispatch => ({
   onSubmit: payload =>
     dispatch({ type: ARTICLE_SUBMITTED, payload }),
   onUnload: payload =>
+      /*dispatch({ type: SONG_SUBMITTED, payload }),
+  onUnload: payload =>*/
     dispatch({ type: EDITOR_PAGE_UNLOADED }),
   onUpdateField: (key, value) =>
     dispatch({ type: UPDATE_FIELD_EDITOR, key, value })
@@ -42,6 +45,15 @@ class Editor extends React.Component {
         description: this.props.description,
         body: this.props.body
       };
+      /*const song = {
+        title: this.props.title,
+        description: this.props.description,
+        body: this.props.body
+      };*/
+      /*const slug = { slug: this.props.songSlug };
+      const promise = this.props.songSlug ?
+          agent.Songs.update(Object.assign(song, slug)) :
+          agent.Songs.create(song);*/
 
       const slug = { slug: this.props.articleSlug };
       const promise = this.props.articleSlug ?
@@ -57,6 +69,7 @@ class Editor extends React.Component {
       if (nextProps.match.params.slug) {
         this.props.onUnload();
         return this.props.onLoad(agent.Articles.get(this.props.match.params.slug));
+        /*return this.props.onLoad(agent.Songs.get(this.props.match.params.slug));*/
       }
       this.props.onLoad(null);
     }
@@ -65,6 +78,7 @@ class Editor extends React.Component {
   componentWillMount() {
     if (this.props.match.params.slug) {
       return this.props.onLoad(agent.Articles.get(this.props.match.params.slug));
+      /*return this.props.onLoad(agent.ongs.get(this.props.match.params.slug));*/
     }
     this.props.onLoad(null);
   }
@@ -90,6 +104,7 @@ class Editor extends React.Component {
                       className="form-control form-control-lg"
                       type="text"
                       placeholder="Article Title"
+                      /*placeholder="Song Title"*/
                       value={this.props.title}
                       onChange={this.changeTitle} />
                   </fieldset>
@@ -99,6 +114,7 @@ class Editor extends React.Component {
                       className="form-control"
                       type="text"
                       placeholder="What's this article about?"
+                      /*placeholder="What's this song about?"*/
                       value={this.props.description}
                       onChange={this.changeDescription} />
                   </fieldset>
@@ -108,6 +124,7 @@ class Editor extends React.Component {
                       className="form-control"
                       rows="8"
                       placeholder="Write your article (in markdown)"
+                      /*placeholder="Write your song (in markdown)"*/
                       value={this.props.body}
                       onChange={this.changeBody}>
                     </textarea>
@@ -120,6 +137,7 @@ class Editor extends React.Component {
                     disabled={this.props.inProgress}
                     onClick={this.submitForm}>
                     Publish Article
+                    {/*Publish Song*/}
                   </button>
 
                 </fieldset>

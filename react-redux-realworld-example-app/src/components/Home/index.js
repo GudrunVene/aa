@@ -1,7 +1,6 @@
 import Banner from './Banner';
 import MainView from './MainView';
 import React from 'react';
-/*import Tags from './Tags';*/
 import agent from '../../agent';
 import { connect } from 'react-redux';
 import {
@@ -31,8 +30,11 @@ class Home extends React.Component {
     const articlesPromise = this.props.token ?
       agent.Articles.feed :
       agent.Articles.all;
+    /*const songsPromise = this.props.token ?
+        agent.Songs.feed :
+        agent.Songs.all;*/
 
-    this.props.onLoad(tab, articlesPromise, Promise.all([agent.Tags.getAll(), articlesPromise()]));
+    this.props.onLoad(tab, articlesPromise, /*songsPromise,*/ Promise.all([agent.Tags.getAll(), articlesPromise(), /*songsPromise()*/]));
   }
 
   componentWillUnmount() {
