@@ -21,8 +21,7 @@ const mapDispatchToProps = dispatch => ({
 class Article extends React.Component {
   componentWillMount() {
     this.props.onLoad(Promise.all([
-      agent.Articles.get(this.props.match.params.id),
-      agent.Comments.forArticle(this.props.match.params.id)
+      agent.Articles.get(this.props.match.params.id)
     ]));
   }
 
@@ -81,13 +80,7 @@ class Article extends React.Component {
           <div className="article-actions">
           </div>
 
-          <div className="row">
-            <CommentContainer
-              comments={this.props.comments || []}
-              errors={this.props.commentErrors}
-              slug={this.props.match.params.id}
-              currentUser={this.props.currentUser} />
-          </div>
+
         </div>
       </div>
     );
