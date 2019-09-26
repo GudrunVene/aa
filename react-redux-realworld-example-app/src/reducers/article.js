@@ -13,7 +13,7 @@ export default (state = {}, action) => {
       };
     case ARTICLE_PAGE_UNLOADED:
       return {};
- 
+
     default:
       return state;
   }
