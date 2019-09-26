@@ -6,8 +6,6 @@ import {
   CHANGE_TAB,
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
-  PROFILE_FAVORITES_PAGE_LOADED,
-  PROFILE_FAVORITES_PAGE_UNLOADED
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -53,7 +51,6 @@ export default (state = {}, action) => {
         tag: null
       };
     case PROFILE_PAGE_LOADED:
-    case PROFILE_FAVORITES_PAGE_LOADED:
       return {
         ...state,
         pager: action.pager,
@@ -62,7 +59,6 @@ export default (state = {}, action) => {
         currentPage: 0
       };
     case PROFILE_PAGE_UNLOADED:
-      case PROFILE_FAVORITES_PAGE_UNLOADED:
          return {};
     default:
       return state;
