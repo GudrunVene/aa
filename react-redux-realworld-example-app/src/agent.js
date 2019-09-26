@@ -68,14 +68,7 @@ const Articles = {
     requests.post('/articles', { article })
 };
 
-/*const Comments = {
-  create: (slug, comment) =>
-    requests.post(`/articles/${slug}/comments`, { comment }),
-  delete: (slug, commentId) =>
-    requests.del(`/articles/${slug}/comments/${commentId}`),
-  forArticle: slug =>
-    requests.get(`/articles/${slug}/comments`)
-};*/
+
 
 const Profile = {
   follow: username =>
@@ -89,7 +82,6 @@ const Profile = {
 export default {
   Articles,
   Auth,
-  /*Comments,*/
   Profile,
   Tags,
   setToken: _token => { token = _token; }
