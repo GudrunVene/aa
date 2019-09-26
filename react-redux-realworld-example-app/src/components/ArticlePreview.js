@@ -31,20 +31,10 @@ const ArticlePreview = props => {
         <h1>{article.title}</h1>
         <p>{article.description}</p>
         <span>Read more...</span>
-        <ul className="tag-list">
-          {
-            article.tagList.map(tag => {
-              return (
-                <li className="tag-default tag-pill tag-outline" key={tag}>
-                  {tag}
-                </li>
-              )
-            })
-          }
-        </ul>
+
       </Link>
     </div>
   );
 }
 
-export default connect(() => ({}),/* mapDispatchToProps*/)(ArticlePreview);
+export default connect(() => ({}),)(ArticlePreview);
