@@ -18,16 +18,6 @@ export default (state = {}, action) => {
         articlesCount: action.payload.articlesCount,
         currentPage: action.page
       };
-    case APPLY_TAG_FILTER:
-      return {
-        ...state,
-        pager: action.pager,
-        articles: action.payload.articles,
-        articlesCount: action.payload.articlesCount,
-        tab: null,
-        tag: action.tag,
-        currentPage: 0
-      };
     case HOME_PAGE_LOADED:
       return {
         ...state,

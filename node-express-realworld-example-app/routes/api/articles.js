@@ -31,13 +31,9 @@ router.get('/', auth.optional, function(req, res, next) {
     offset = req.query.offset;
   }
 
-  if( typeof req.query.tag !== 'undefined' ){
-    query.tagList = {"$in" : [req.query.tag]};
-  }
 
   Promise.all([
-    req.query.author ? User.findOne({username: req.query.author}) : null,
-    req.query.favorited ? User.findOne({username: req.query.favorited}) : null
+    req.query.author ? User.findOne({username: req.query.author}) : null
   ]).then(function(results){
     var author = results[0];
 
@@ -151,9 +147,6 @@ router.put('/:article', auth.required, function(req, res, next) {
         req.article.body = req.body.article.body;
       }
 
-      if(typeof req.body.article.tagList !== 'undefined'){
-        req.article.tagList = req.body.article.tagList
-      }
 
       req.article.save().then(function(article){
         return res.json({article: article.toJSONFor(user)});

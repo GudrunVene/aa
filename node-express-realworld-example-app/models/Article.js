@@ -8,7 +8,6 @@ var ArticleSchema = new mongoose.Schema({
   title: String,
   description: String,
   body: String,
-  tagList: [{ type: String }],
   author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 }, {timestamps: true});
 
@@ -34,7 +33,6 @@ ArticleSchema.methods.toJSONFor = function(user){
     body: this.body,
     createdAt: this.createdAt,
     updatedAt: this.updatedAt,
-    tagList: this.tagList,
     author: this.author.toProfileJSONFor(user)
   };
 };
