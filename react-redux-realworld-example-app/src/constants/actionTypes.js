@@ -1,14 +1,14 @@
 export const APP_LOAD = 'APP_LOAD';
 export const REDIRECT = 'REDIRECT';
-
+export const ADD_TAG = 'ADD_TAG';
 export const SONG_SUBMITTED = 'SONG_SUBMITTED';
 export const SETTINGS_SAVED = 'SETTINGS_SAVED';
-
+export const REMOVE_TAG = 'REMOVE_TAG';
 export const DELETE_SONG = 'DELETE_SONG';
 export const SETTINGS_PAGE_UNLOADED = 'SETTINGS_PAGE_UNLOADED';
 export const HOME_PAGE_LOADED = 'HOME_PAGE_LOADED';
 export const HOME_PAGE_UNLOADED = 'HOME_PAGE_UNLOADED';
-
+export const APPLY_TAG_FILTER = 'APPLY_TAG_FILTER';
 export const SONG_PAGE_LOADED = 'SONG_PAGE_LOADED';
 
 export const SONG_PAGE_UNLOADED = 'SONG_PAGE_UNLOADED';

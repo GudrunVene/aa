@@ -1,13 +1,14 @@
 var mongoose = require('mongoose');
 var uniqueValidator = require('mongoose-unique-validator');
 var slug = require('slug');
-var User = mongoose.model('User');
+/*var User = mongoose.model('User');*/
 
 var SongSchema = new mongoose.Schema({
     slug: {type: String, lowercase: true, unique: true},
     title: String,
     description: String,
     body: String,
+    tagList: [{ type: String }],
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 }, {timestamps: true});
 
@@ -33,6 +34,7 @@ SongSchema.methods.toJSONFor = function(user){
         body: this.body,
         createdAt: this.createdAt,
         updatedAt: this.updatedAt,
+        tagList: this.tagList,
         author: this.author.toProfileJSONFor(user)
     };
 };

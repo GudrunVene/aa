@@ -37,7 +37,6 @@ router.get('/', auth.optional, function(req, res, next) {
     ]).then(function(results){
         var author = results[0];
 
-
         if(author){
             query.author = author._id;
         }

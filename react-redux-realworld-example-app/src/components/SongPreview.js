@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import agent from '../agent';
+/*import agent from '../agent';*/
 import { connect } from 'react-redux';
 
 
@@ -31,6 +31,18 @@ const SongPreview = props => {
                 <h1>{song.title}</h1>
                 <p>{song.description}</p>
                 <span>Read more...</span>
+
+                <ul className="tag-list">
+                    {
+                        song.tagList.map(tag => {
+                            return (
+                                <li className="tag-default tag-pill tag-outline" key={tag}>
+                                    {tag}
+                                </li>
+                            )
+                        })
+                    }
+                </ul>
 
             </Link>
         </div>

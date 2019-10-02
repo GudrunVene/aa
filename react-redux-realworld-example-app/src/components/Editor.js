@@ -3,8 +3,9 @@ import React from 'react';
 import agent from '../agent';
 import { connect } from 'react-redux';
 import {
+  ADD_TAG,
   EDITOR_PAGE_LOADED,
-
+  REMOVE_TAG,
   SONG_SUBMITTED,
   EDITOR_PAGE_UNLOADED,
   UPDATE_FIELD_EDITOR
@@ -15,10 +16,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  onAddTag: () =>
+      dispatch({ type: ADD_TAG }),
   onLoad: payload =>
     dispatch({ type: EDITOR_PAGE_LOADED, payload }),
+  onRemoveTag: tag =>
+      dispatch({ type: REMOVE_TAG, tag }),
   onSubmit: payload =>
-
       dispatch({ type: SONG_SUBMITTED, payload }),
   onUnload: payload =>
     dispatch({ type: EDITOR_PAGE_UNLOADED }),
@@ -35,7 +39,18 @@ class Editor extends React.Component {
     this.changeTitle = updateFieldEvent('title');
     this.changeDescription = updateFieldEvent('description');
     this.changeBody = updateFieldEvent('body');
+    this.changeTagInput = updateFieldEvent('tagInput');
 
+    this.watchForEnter = ev => {
+      if (ev.keyCode === 13) {
+        ev.preventDefault();
+        this.props.onAddTag();
+      }
+    };
+
+    this.removeTagHandler = tag => () => {
+      this.props.onRemoveTag(tag);
+    };
 
     this.submitForm = ev => {
       ev.preventDefault();
@@ -43,6 +58,7 @@ class Editor extends React.Component {
       const song = {
         title: this.props.title,
         description: this.props.description,
+        tagList: this.props.tagList,
         body: this.props.body
       };
       const slug = { slug: this.props.songSlug };
@@ -67,7 +83,7 @@ class Editor extends React.Component {
 
   componentWillMount() {
     if (this.props.match.params.slug) {
-      return this.props.onLoad(agent.ongs.get(this.props.match.params.slug));
+      return this.props.onLoad(agent.Songs.get(this.props.match.params.slug));
     }
     this.props.onLoad(null);
   }
@@ -119,6 +135,30 @@ class Editor extends React.Component {
                     </textarea>
                   </fieldset>
 
+                  <fieldset className="form-group">
+                    <input
+                        className="form-control"
+                        type="text"
+                        placeholder="Enter tags"
+                        value={this.props.tagInput}
+                        onChange={this.changeTagInput}
+                        onKeyUp={this.watchForEnter} />
+
+                    <div className="tag-list">
+                      {
+                        (this.props.tagList || []).map(tag => {
+                          return (
+                              <span className="tag-default tag-pill" key={tag}>
+                              <i  className="ion-close-round"
+                                  onClick={this.removeTagHandler(tag)}>
+                              </i>
+                                {tag}
+                            </span>
+                          );
+                        })
+                      }
+                    </div>
+                  </fieldset>
 
                   <button
                     className="btn btn-lg pull-xs-right btn-primary"

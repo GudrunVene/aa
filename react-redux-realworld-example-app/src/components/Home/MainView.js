@@ -46,8 +46,23 @@ const GlobalFeedTab = props => {
 const mapStateToProps = state => ({
 
   ...state.songList,
+    tags: state.home.tags,
   token: state.common.token
 });
+
+const TagFilterTab = props => {
+    if (!props.tag) {
+        return null;
+    }
+
+    return (
+        <li className="nav-item">
+            <a href="" className="nav-link active">
+                <i className="ion-pound"></i> {props.tag}
+            </a>
+        </li>
+    );
+};
 
 const mapDispatchToProps = dispatch => ({
   onTabClick: (tab, pager, payload) => dispatch({ type: CHANGE_TAB, tab, pager, payload })
@@ -66,7 +81,7 @@ const MainView = props => {
 
           <GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />
 
-
+            <TagFilterTab tag={props.tag} />
 
         </ul>
       </div>
