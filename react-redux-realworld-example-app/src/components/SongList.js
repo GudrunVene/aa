@@ -13,7 +13,7 @@ import React from 'react';
       if (props.songs.length === 0) {
         return (
             <div className="song-preview">
-              No songs are here... yet.
+              Click global feed to see songs
             </div>
         );
       }
