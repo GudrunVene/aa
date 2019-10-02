@@ -135,31 +135,6 @@ class Editor extends React.Component {
                     </textarea>
                   </fieldset>
 
-                  <fieldset className="form-group">
-                    <input
-                        className="form-control"
-                        type="text"
-                        placeholder="Enter tags"
-                        value={this.props.tagInput}
-                        onChange={this.changeTagInput}
-                        onKeyUp={this.watchForEnter} />
-
-                    <div className="tag-list">
-                      {
-                        (this.props.tagList || []).map(tag => {
-                          return (
-                              <span className="tag-default tag-pill" key={tag}>
-                              <i  className="ion-close-round"
-                                  onClick={this.removeTagHandler(tag)}>
-                              </i>
-                                {tag}
-                            </span>
-                          );
-                        })
-                      }
-                    </div>
-                  </fieldset>
-
                   <button
                     className="btn btn-lg pull-xs-right btn-primary"
                     type="button"
