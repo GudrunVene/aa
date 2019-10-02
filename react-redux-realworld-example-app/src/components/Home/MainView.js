@@ -54,7 +54,7 @@ const MainView = props => {
     <div className="col-md-9">
       <div className="feed-toggle">
         <ul className="nav nav-pills outline-active">
-            
+
 
           <GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />
 
