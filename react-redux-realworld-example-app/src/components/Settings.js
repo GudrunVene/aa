@@ -13,7 +13,7 @@ class SettingsForm extends React.Component {
     super();
 
     this.state = {
-      
+
       username: '',
 
       email: '',

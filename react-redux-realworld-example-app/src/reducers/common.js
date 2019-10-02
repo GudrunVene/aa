@@ -20,7 +20,7 @@ import {
 } from '../constants/actionTypes';
 
 const defaultState = {
-  appName: 'Conduit',
+  appName: 'Best song lyrics',
   token: null,
   viewChangeCounter: 0
 };
