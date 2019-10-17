@@ -1,0 +1,343 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "",
+    "version" : "2.1.2",
+    "title" : "get songs"
+  },
+  "host" : "localhost:3000",
+  "basePath" : "/api",
+  "schemes" : [ "http" ],
+  "paths": {
+    "/users/login": {
+      "post": {
+        "summary": "Existing user login",
+        "description": "Login for existing user",
+        "tags": [
+          "User and Authentication"
+        ],
+        "operationId": "Login",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Credentials to use",
+            "schema": {
+              "$ref": "#/definitions/LoginUserRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/GenericErrorModel"
+            }
+          }
+        }
+      }
+    },
+
+    "/songs" : {
+      "get" : {
+        "summary" : "allow users see songs",
+        "description" : "allow users see songs",
+        "parameters" : [ {
+          "name" : "limit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "maximum" : 20
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0
+        }, {
+          "name" : "author",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "songs" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/definitions/Song"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "422" : {
+            "description" : "Unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/GenericErrorModel"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create an article",
+        "description": "Create an article. Auth is required",
+        "tags": [
+          "Articles"
+        ],
+        "security": [
+          {
+            "Token": []
+          }
+        ],
+        "operationId": "CreateArticle",
+        "parameters": [
+          {
+            "name": "article",
+            "in": "body",
+            "required": true,
+            "description": "Article to create",
+            "schema": {
+              "$ref": "#/definitions/NewArticleRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/SingleArticleResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/GenericErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "/songs/{slug}" : {
+      "put" : {
+        "summary" : "allow user to change songs",
+        "description" : "allow user to change songs",
+        "parameters" : [ {
+          "name" : "slug",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/SongRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/SongRequest"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "422" : {
+            "description" : "Unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/GenericErrorModel"
+            }
+          }
+        },
+        "security" : [ {
+          "bearer" : [ ]
+        } ]
+      },
+      "delete" : {
+        "summary" : "allow user to delete songs",
+        "description" : "allow user to delete songs",
+        "parameters" : [ {
+          "name" : "slug",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "422" : {
+            "description" : "Unexpected error",
+            "schema" : {
+              "$ref" : "#/definitions/GenericErrorModel"
+            }
+          }
+        },
+        "security" : [ {
+          "bearer" : [ ]
+        } ]
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "bearer" : {
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "User": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "user@gmail.com"
+        },
+        "token": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string",
+          "example": "user"
+        },
+        "bio": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "token",
+        "username",
+        "bio",
+        "image"
+      ]
+    },
+    "LoginUserRequest": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/LoginUser"
+        }
+      },
+      "required": [
+        "user"
+      ]
+    },
+    "UserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/User"
+        }
+      },
+      "required": [
+        "user"
+      ]
+    },
+    "LoginUser": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "user@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "format": "password",
+          "example": "user"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "SongRequest" : {
+      "type" : "object",
+      "required" : [ "song" ],
+      "properties" : {
+        "song" : {
+          "$ref" : "#/definitions/Song"
+        }
+      }
+    },
+    "Song" : {
+      "type" : "object",
+      "required" : [ "artist", "lyrics", "title" ],
+      "properties" : {
+        "title" : {
+          "type" : "string",
+          "example" : "Save me"
+        },
+        "artist" : {
+          "type" : "string",
+          "example" : "BTS"
+        },
+        "lyrics" : {
+          "type" : "string",
+          "example" : "AAAA [Verse 1] Nan sumswigo sipeo i bami silheo Ijen kkaego sipeo kkumsogi silheo Nae ane gathyeoseo nan jugeoisseo Don’t wanna be lonely Just wanna be yours Wae iri kkamkkamhan geonji Niga eopsneun i goseun Wiheomhajanha manggajin nae moseup Guhaejwo nal nado nal jabeul su eopseo Su eopseo\n[Pre-Chorus] Nae simjangsoril deureobwa Jemeosdaero neol bureujanha I kkaman eodum sogeseo Neoneun ireohge biccnanikka\n[Chorus] Geu soneul naemireojwo save me save me I need your love before I fall fall Geu soneul naemireojwo save me save me I need your love before I fall fall Geu soneul naemireojwo save me save me (Oh oh, save me me me) Geu soneul naemireojwo save me save me (Oh oh, save me me me) Save me save me (Oh oh, save me me me)"
+        }
+      }
+    },
+    "GenericErrorModel" : {
+      "type" : "object",
+      "required" : [ "errors" ],
+      "properties" : {
+        "errors" : {
+          "$ref" : "#/definitions/GenericErrorModel_errors"
+        }
+      }
+    },
+    "inline_response_200" : {
+      "properties" : {
+        "songs" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Song"
+          }
+        }
+      }
+    },
+    "GenericErrorModel_errors" : {
+      "required" : [ "body" ],
+      "properties" : {
+        "body" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}
